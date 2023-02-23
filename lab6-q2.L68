@@ -1,0 +1,49 @@
+00000400 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 11/11/2022 3:13:49 PM
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00000400                             7      ORG    $400
+00000400                             8  START:                  ; first instruction of program
+00000400                             9  
+00000400                            10  * Put program code here
+00000400  41F9 00001000             11          LEA     DATA,A0         *A0 points at DATA
+00000406  3239 00001014             12          MOVE    KEY,D1          *Put the key in D1 
+0000040C  103C 0000                 13          MOVE.B  #0,D0           *D0 the counter of the loop
+00000410  B258                      14  LOOP    CMP     (A0)+,D1        *compare the key and this element
+00000412  6600 000C                 15          BNE     ELSE            *if not equal go to else
+00000416  13C0 00002000             16          MOVE.B  D0,OINDEX       *if equal store the index/counter in OINDEX
+0000041C  6000 000A                 17          BRA     EXIT            *then exit the loop
+00000420  5240                      18  ELSE    ADD     #1,D0           *increment counter D0
+00000422  B07C 000A                 19          CMP     #10,D0          *check for next iteration
+00000426  66E8                      20          BNE     LOOP            *if counter not equal 10 go to loop
+00000428                            21  EXIT    
+00000428  FFFF FFFF                 22      SIMHALT             ; halt simulator
+0000042C                            23  
+0000042C                            24  * Put variables and constants here
+00001000                            25      ORG     $1000
+00001000= 000D 000F 000E 0...       26  DATA    DC.W    13,15,14,68,-3,20,85,30,1,19
+00001014= 0001                      27  KEY     DC.W    1
+00002000                            28      ORG     $2000
+00002000                            29  OINDEX  DS.B    1
+00002001                            30      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+DATA                1000
+ELSE                420
+EXIT                428
+KEY                 1014
+LOOP                410
+OINDEX              2000
+START               400
